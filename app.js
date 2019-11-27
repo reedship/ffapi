@@ -1,12 +1,19 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const chalk = require('chalk');
+const express = require('express')
+const bodyParser = require('body-parser')
+const chalk = require('chalk')
 
 const app = express()
 app.set('port', process.env.PORT || 3001)
 app.set('view engine', 'ejs')
-app.get('/', (req, res, next) => res.render('readme'))
+app.use('/', (req, res) => {
+	res.sendFile(__dirname + '/README.md')
+})
 app.listen(app.get('port'), () => {
-    console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env'));
-    console.log('  Press CTRL-C to stop\n');
-  });
+	console.log(
+		'%s App is running at http://localhost:%d in %s mode',
+		chalk.green('✓'),
+		app.get('port'),
+		app.get('env')
+	)
+	console.log('  Press CTRL-C to stop\n')
+})
